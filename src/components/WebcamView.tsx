@@ -50,7 +50,7 @@ const WebcamView = ({ className, mirror = true, children, onReady }: Props) => {
   }, []);
 
   return (
-    <div className={cn("relative overflow-hidden bg-neutral-950", className)}>
+    <div className={cn("relative overflow-hidden bg-foreground", className)}>
       <video
         ref={videoRef}
         playsInline

@@ -33,7 +33,7 @@ const Scan = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-neutral-950">
+    <div className="h-screen flex flex-col bg-foreground">
       <AppHeader variant="overlay" />
 
       <main className="flex-1 pt-16 relative">
