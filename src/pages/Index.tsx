@@ -1,106 +1,122 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import AppHeader from "@/components/AppHeader";
-
-const valueProps = [
-  { kicker: "01", title: "Real fit, not just look", body: "Every frame is scored against your facial measurements — temple width, bridge, lens height." },
-  { kicker: "02", title: "Independent makers", body: "Family ateliers, vintage specialists, sustainable studios. No big-box noise." },
-  { kicker: "03", title: "No pressure to buy", body: "Try anything. Save what you love. Visit the maker when you're ready." },
-];
-
-const partnerMarks = ["Maison Lune", "Atelier Vico", "Iris & Vale", "North Optic Co.", "Ode Eyewear", "Casa Bruna", "Nordlys Studio", "Grain & Lens"];
+import { ChevronDown, Scan, Eye, Store, Sun, Moon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Index = () => {
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (dark) root.classList.add("dark");
+    else root.classList.remove("dark");
+  }, [dark]);
+
+  const nodes = [
+    { to: "/scan", icon: Scan, label: "Scan face" },
+    { to: "/scan", icon: Eye, label: "Try-on" },
+    { to: "/try-on", icon: Store, label: "Boutiques" },
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <AppHeader />
+    <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
+      {/* Theme toggle */}
+      <button
+        onClick={() => setDark((d) => !d)}
+        aria-label="Toggle theme"
+        className="fixed top-6 right-6 z-50 h-11 w-11 rounded-full bg-surface-lowest/70 backdrop-blur-xl flex items-center justify-center text-foreground/70 hover:text-foreground transition-colors shadow-cloud"
+      >
+        {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      </button>
 
-      <main className="flex-1 pt-16">
-        {/* Hero */}
-        <section className="relative px-6 md:px-10 pt-20 md:pt-32 pb-24 md:pb-40 max-w-7xl mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground animate-fade-in">
-            Virtual try-on · for independent eyewear
-          </p>
+      {/* Giant glasses backdrop */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+      >
+        <svg
+          viewBox="0 0 1400 700"
+          className="w-[140%] max-w-none opacity-[0.18] dark:opacity-[0.12]"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <defs>
+            <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="hsl(var(--foreground))" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="hsl(var(--foreground))" stopOpacity="0.15" />
+            </linearGradient>
+          </defs>
+          {/* Left lens */}
+          <path
+            d="M 120 360 C 120 220, 280 170, 480 200 C 620 220, 660 320, 640 430 C 620 540, 480 580, 320 560 C 180 540, 120 470, 120 360 Z"
+            fill="hsl(var(--surface-lowest))"
+            fillOpacity="0.35"
+            stroke="url(#glassGrad)"
+            strokeWidth="3"
+          />
+          {/* Right lens */}
+          <path
+            d="M 760 360 C 760 220, 920 170, 1120 200 C 1260 220, 1300 320, 1280 430 C 1260 540, 1120 580, 960 560 C 820 540, 760 470, 760 360 Z"
+            fill="hsl(var(--surface-lowest))"
+            fillOpacity="0.35"
+            stroke="url(#glassGrad)"
+            strokeWidth="3"
+          />
+          {/* Bridge */}
+          <path
+            d="M 640 280 C 680 260, 720 260, 760 280"
+            fill="none"
+            stroke="url(#glassGrad)"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
 
-          <h1 className="font-display font-semibold tracking-tight text-foreground mt-6 leading-[0.95] animate-fade-in-up text-[clamp(2.75rem,9vw,8rem)]">
-            See it on.<br />
-            <span className="text-muted-foreground">Know it fits.</span>
+      {/* Soft ambient blob */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-primary/5 blur-3xl" />
+
+      {/* Hero content */}
+      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 text-center">
+        <div className="animate-fade-in-up">
+          <h1 className="font-display text-[clamp(3rem,11vw,9rem)] leading-[0.9] tracking-tight text-foreground">
+            FrameSense
           </h1>
 
-          <div className="mt-10 max-w-xl animate-fade-in-up" style={{ animationDelay: "120ms" }}>
-            <p className="text-base md:text-lg text-foreground/80 leading-relaxed">
-              FrameSense reads your face shape and measurements, then quietly tells you whether each pair will actually sit right — so you can shop boutique eyewear online with confidence.
-            </p>
-          </div>
+          <p className="mt-8 text-[0.6875rem] uppercase tracking-[0.32em] text-muted-foreground">
+            AI-driven eyewear try-on <span className="mx-2 text-outline-variant">|</span>{" "}
+            Independent ateliers <span className="mx-2 text-outline-variant">|</span>{" "}
+            Sustainable style
+          </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row gap-3 animate-fade-in-up" style={{ animationDelay: "240ms" }}>
-            <Link
-              to="/scan"
-              className="group inline-flex items-center justify-center gap-2 h-12 px-6 rounded-full bg-foreground text-background text-sm font-medium hover:bg-foreground/90 transition-all"
-            >
-              Start try-on
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <Link
-              to="/try-on"
-              className="inline-flex items-center justify-center h-12 px-6 rounded-full border hairline text-sm text-foreground hover:bg-secondary transition-colors"
-            >
-              Skip to catalog
-            </Link>
-          </div>
-
-          {/* Decorative SVG glasses */}
-          <div className="hidden lg:block absolute right-10 top-32 opacity-90 animate-float">
-            <svg width="320" height="120" viewBox="0 0 320 120">
-              <circle cx="80" cy="60" r="48" fill="none" stroke="hsl(var(--foreground))" strokeWidth="3" />
-              <circle cx="240" cy="60" r="48" fill="none" stroke="hsl(var(--foreground))" strokeWidth="3" />
-              <line x1="128" y1="58" x2="192" y2="58" stroke="hsl(var(--foreground))" strokeWidth="3" />
-              <line x1="32" y1="48" x2="6" y2="38" stroke="hsl(var(--foreground))" strokeWidth="3" strokeLinecap="round" />
-              <line x1="288" y1="48" x2="314" y2="38" stroke="hsl(var(--foreground))" strokeWidth="3" strokeLinecap="round" />
-            </svg>
-          </div>
-        </section>
-
-        {/* Value props */}
-        <section className="border-t hairline">
-          <div className="max-w-7xl mx-auto px-6 md:px-10 py-20 grid md:grid-cols-3 gap-12 md:gap-16">
-            {valueProps.map((v) => (
-              <div key={v.kicker}>
-                <p className="text-xs tabular-nums text-accent font-medium mb-4">— {v.kicker}</p>
-                <h3 className="font-display text-xl font-semibold mb-3">{v.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{v.body}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Partners strip */}
-        <section className="border-t hairline">
-          <div className="max-w-7xl mx-auto px-6 md:px-10 py-12">
-            <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground mb-6">
-              Featured independent makers
-            </p>
-            <div className="flex flex-wrap gap-x-10 gap-y-4">
-              {partnerMarks.map((m) => (
-                <span key={m} className="font-display text-base md:text-lg text-foreground/60 hover:text-foreground transition-colors">
-                  {m}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="border-t hairline">
-        <div className="max-w-7xl mx-auto px-6 md:px-10 py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} FrameSense — eyewear, fitted.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-foreground transition-colors">For makers</a>
-            <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
-            <a href="#" className="hover:text-foreground transition-colors">Contact</a>
-          </div>
+          {/* Gradient accent bar */}
+          <div className="mx-auto mt-6 h-[3px] w-64 rounded-full bg-gradient-primary" />
         </div>
-      </footer>
+
+        {/* Circular nav nodes */}
+        <nav className="mt-20 flex items-center gap-10 sm:gap-16 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
+          {nodes.map(({ to, icon: Icon, label }) => (
+            <Link key={label} to={to} className="group flex flex-col items-center gap-5">
+              <span
+                className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full border flex items-center justify-center transition-all duration-500 group-hover:scale-105"
+                style={{ borderColor: "hsl(var(--outline-variant) / 0.35)" }}
+              >
+                <span className="absolute inset-0 rounded-full bg-gradient-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <Icon
+                  className="relative h-5 w-5 text-primary group-hover:text-primary-foreground transition-colors duration-500"
+                  strokeWidth={2}
+                />
+              </span>
+              <span className="text-[0.625rem] uppercase tracking-[0.28em] text-muted-foreground group-hover:text-foreground transition-colors">
+                {label}
+              </span>
+            </Link>
+          ))}
+        </nav>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-float">
+          <ChevronDown className="h-5 w-5 text-outline-variant" />
+        </div>
+      </main>
     </div>
   );
 };
