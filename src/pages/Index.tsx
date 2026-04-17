@@ -30,24 +30,21 @@ const Index = () => {
         {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
       </button>
 
-      {/* Giant glasses backdrop */}
-      <div
+      {/* Glasses background */}
+      <img
+        src={glassesLight}
+        alt=""
         aria-hidden
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
-      >
-        <img
-          src={glassesLight}
-          alt=""
-          className="w-[80%] max-w-[1100px] object-contain select-none dark:hidden"
-          draggable={false}
-        />
-        <img
-          src={glassesDark}
-          alt=""
-          className="w-[80%] max-w-[1100px] object-contain select-none hidden dark:block"
-          draggable={false}
-        />
-      </div>
+        className="pointer-events-none select-none absolute inset-0 w-full h-full object-cover dark:hidden"
+        draggable={false}
+      />
+      <img
+        src={glassesDark}
+        alt=""
+        aria-hidden
+        className="pointer-events-none select-none absolute inset-0 w-full h-full object-cover hidden dark:block"
+        draggable={false}
+      />
 
       {/* Soft ambient blob */}
       <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-primary/5 blur-3xl" />
