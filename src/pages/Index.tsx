@@ -15,8 +15,8 @@ const Index = () => {
 
   const nodes = [
     { to: "/scan", icon: Scan, label: "Scan face" },
-    { to: "/scan", icon: Eye, label: "Try-on" },
-    { to: "/try-on", icon: Store, label: "Boutiques" },
+    { to: "/try-on", icon: Eye, label: "Try-on" },
+    { to: "#", icon: Store, label: "Boutiques" },
   ];
 
   return (
