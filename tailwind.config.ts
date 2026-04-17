@@ -57,6 +57,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        surface: {
+          DEFAULT: "hsl(var(--surface))",
+          low: "hsl(var(--surface-low))",
+          lowest: "hsl(var(--surface-lowest))",
+          container: "hsl(var(--surface-container))",
+        },
+        "primary-container": "hsl(var(--primary-container))",
+        "outline-variant": "hsl(var(--outline-variant))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -65,7 +73,7 @@ export default {
       },
       fontFamily: {
         sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["Manrope", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       keyframes: {
         "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
