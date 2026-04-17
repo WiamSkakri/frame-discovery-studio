@@ -32,12 +32,8 @@ const AppHeader = ({ variant = "light" }: AppHeaderProps) => {
             Browse frames
           </Link>
         )}
-        <button
-          type="button"
-          className="px-3 py-1.5 text-muted-foreground hover:text-foreground transition-colors"
-        >
-          Sign in
-        </button>
+
+
       </nav>
     </header>
   );
