@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { ChevronDown, Scan, Eye, Store, Sun, Moon } from "lucide-react";
 import { useEffect, useState } from "react";
+import glassesLight from "@/assets/glasses-backdrop-light.png";
+import glassesDark from "@/assets/glasses-backdrop-dark.png";
 
 const Index = () => {
   const [dark, setDark] = useState(false);
@@ -33,42 +35,18 @@ const Index = () => {
         aria-hidden
         className="pointer-events-none absolute inset-0 flex items-center justify-center"
       >
-        <svg
-          viewBox="0 0 1400 700"
-          className="w-[140%] max-w-none opacity-[0.18] dark:opacity-[0.12]"
-          preserveAspectRatio="xMidYMid meet"
-        >
-          <defs>
-            <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="hsl(var(--foreground))" stopOpacity="0.55" />
-              <stop offset="100%" stopColor="hsl(var(--foreground))" stopOpacity="0.15" />
-            </linearGradient>
-          </defs>
-          {/* Left lens */}
-          <path
-            d="M 120 360 C 120 220, 280 170, 480 200 C 620 220, 660 320, 640 430 C 620 540, 480 580, 320 560 C 180 540, 120 470, 120 360 Z"
-            fill="hsl(var(--surface-lowest))"
-            fillOpacity="0.35"
-            stroke="url(#glassGrad)"
-            strokeWidth="3"
-          />
-          {/* Right lens */}
-          <path
-            d="M 760 360 C 760 220, 920 170, 1120 200 C 1260 220, 1300 320, 1280 430 C 1260 540, 1120 580, 960 560 C 820 540, 760 470, 760 360 Z"
-            fill="hsl(var(--surface-lowest))"
-            fillOpacity="0.35"
-            stroke="url(#glassGrad)"
-            strokeWidth="3"
-          />
-          {/* Bridge */}
-          <path
-            d="M 640 280 C 680 260, 720 260, 760 280"
-            fill="none"
-            stroke="url(#glassGrad)"
-            strokeWidth="3"
-            strokeLinecap="round"
-          />
-        </svg>
+        <img
+          src={glassesLight}
+          alt=""
+          className="w-[140%] max-w-none object-contain select-none dark:hidden"
+          draggable={false}
+        />
+        <img
+          src={glassesDark}
+          alt=""
+          className="w-[140%] max-w-none object-contain select-none hidden dark:block"
+          draggable={false}
+        />
       </div>
 
       {/* Soft ambient blob */}
