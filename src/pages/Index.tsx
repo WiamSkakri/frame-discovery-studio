@@ -38,13 +38,13 @@ const Index = () => {
         <img
           src={glassesLight}
           alt=""
-          className="w-[140%] max-w-none object-contain select-none dark:hidden"
+          className="w-[80%] max-w-[1100px] object-contain select-none dark:hidden"
           draggable={false}
         />
         <img
           src={glassesDark}
           alt=""
-          className="w-[140%] max-w-none object-contain select-none hidden dark:block"
+          className="w-[80%] max-w-[1100px] object-contain select-none hidden dark:block"
           draggable={false}
         />
       </div>
