@@ -35,14 +35,14 @@ const Index = () => {
         src={glassesLight}
         alt=""
         aria-hidden
-        className="pointer-events-none select-none absolute inset-0 w-full h-full object-cover dark:hidden"
+        className="pointer-events-none select-none absolute inset-0 w-full h-full object-cover object-[60%_center] dark:hidden"
         draggable={false}
       />
       <img
         src={glassesDark}
         alt=""
         aria-hidden
-        className="pointer-events-none select-none absolute inset-0 w-full h-full object-cover hidden dark:block"
+        className="pointer-events-none select-none absolute inset-0 w-full h-full object-cover object-[60%_center] hidden dark:block"
         draggable={false}
       />
 
