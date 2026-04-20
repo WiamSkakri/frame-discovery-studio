@@ -1,49 +1,25 @@
 
-The current code is doing the opposite of what you want.
+You're right — the source PNG isn't wide enough to fill the viewport once we shift it right. By oversizing to `w-[112%]` and translating `+6%`, we exposed the left edge of the image (empty/transparent canvas), creating that gap.
 
-In `src/pages/Index.tsx`, both background images are set to:
-
-```tsx
-w-[112%] -translate-x-[6%]
-```
-
-That means:
-- the image is made wider than the viewport
-- then pushed left by 6%
-
-So if the glasses already look too far left, this styling makes that worse.
+The image isn't "dynamic" in the responsive sense — it's a fixed-resolution PNG, and `object-cover` was already stretching it edge-to-edge. Any horizontal shift will reveal an empty edge on one side unless we compensate by making the image even wider so both edges stay outside the viewport.
 
 ## Plan
 
-1. Remove the leftward shift on both backdrop `<img>` tags.
-2. Replace it with a rightward shift instead:
-   - keep the slight oversize if needed for full bleed
-   - change `-translate-x-[6%]` to a positive right shift such as `translate-x-[6%]`
-3. Keep everything else unchanged:
-   - hero text
-   - nav circles
-   - theme toggle
-   - ambient blob
-4. Recheck the bridge alignment against the wordmark so it no longer sits left of the “S”.
+Increase the image width so the rightward shift no longer pulls the left edge into view.
 
-## Expected code direction
+In `src/pages/Index.tsx`, on both backdrop `<img>` tags:
 
-From:
+- Change `w-[112%]` → `w-[125%]`
+- Keep `translate-x-[6%]` (rightward)
 
-```tsx
-className="... h-full w-[112%] -translate-x-[6%] object-cover ..."
-```
+Math: with `w-[125%]`, there is 25% of overflow to distribute. A `+6%` translate leaves ~6.5% bleeding off the left and ~18.5% off the right — no empty gap on either side, and the glasses still sit slightly right of center.
 
-To something like:
+If after this the bridge swings too far right, reduce the shift to `translate-x-[4%]` or `translate-x-[3%]` rather than reducing the width.
 
-```tsx
-className="... h-full w-[112%] translate-x-[6%] object-cover ..."
-```
+## Why not a different approach
 
-If that is too much, the follow-up tuning range should be smaller positive values like `translate-x-[3%]` to `translate-x-[5%]`, but the key fix is to move right, not left.
+- `object-position` had no visible effect earlier in this conversation.
+- Re-exporting the PNG with the glasses re-centered would also work but requires a new asset; the CSS fix is faster and reversible.
+- Using `background-image` with `background-size: cover` + `background-position` would behave identically to `object-cover` — same root limitation.
 
-## Technical details
-
-- `object-position` was not the effective lever here.
-- The dominant visible offset is coming from the explicit Tailwind transform.
-- Because the page uses `overflow-hidden`, shifting the oversized image right is the correct way to rebalance the composition without changing layout structure.
+Only the two `<img>` className strings change. Hero text, nav circles, theme toggle, ambient blob untouched.
